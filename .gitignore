@@ -1,0 +1,34 @@
+# Ignore build output
+bin/
+obj/
+
+# Ignore user-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore Visual Studio working directory
+.vs/
+
+# Ignore temporary files
+*.log
+*.tlog
+*.idb
+
+# Ignore database files
+*.db
+*.sqlite
+
+# Ignore secrets
+secrets.json
+appsettings.json
+appsettings.Development.json
+
+# Ignore IDE and editor files
+.idea/
+.vscode/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
