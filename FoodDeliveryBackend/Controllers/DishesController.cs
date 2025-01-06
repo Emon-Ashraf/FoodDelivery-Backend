@@ -1,5 +1,7 @@
 ﻿using BLL.Interfaces;
+using DAL.Models;
 using DTO;
+using DTO.Enums;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,11 +21,13 @@ namespace FoodDeliveryBackend.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetDishes([FromQuery] List<string> categories, [FromQuery] bool? vegetarian, [FromQuery] string sorting, [FromQuery] int page = 1)
+        public async Task<IActionResult> GetDishes([FromQuery] DishFilterModel filter)
         {
-            var result = await _dishService.GetDishesAsync(categories, vegetarian, sorting, page);
+            var categories = filter.Categories.Select(c => c.ToString()).ToList();
+            var result = await _dishService.GetDishesAsync(categories, filter.Vegetarian, filter.Sorting, filter.Page);
             return Ok(result);
         }
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDishById(Guid id)

@@ -2,6 +2,7 @@
 using DAL.Data;
 using DAL.Models;
 using DTO;
+using DTO.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace BLL.Services
             _context = context;
         }
 
-        public async Task<DishPagedListDto> GetDishesAsync(List<string> categories, bool? vegetarian, string sorting, int page)
+        public async Task<DishPagedListDto> GetDishesAsync(List<string> categories, bool? vegetarian, DishSorting sorting, int page)
         {
             var query = _context.Dishes.AsQueryable();
 
@@ -39,12 +40,12 @@ namespace BLL.Services
 
             query = sorting switch
             {
-                "NameAsc" => query.OrderBy(d => d.Name),
-                "NameDesc" => query.OrderByDescending(d => d.Name),
-                "PriceAsc" => query.OrderBy(d => d.Price),
-                "PriceDesc" => query.OrderByDescending(d => d.Price),
-                "RatingAsc" => query.OrderBy(d => d.Rating),
-                "RatingDesc" => query.OrderByDescending(d => d.Rating),
+                DishSorting.NameAsc => query.OrderBy(d => d.Name),
+                DishSorting.NameDesc => query.OrderByDescending(d => d.Name),
+                DishSorting.PriceAsc => query.OrderBy(d => d.Price),
+                DishSorting.PriceDesc => query.OrderByDescending(d => d.Price),
+                DishSorting.RatingAsc => query.OrderBy(d => d.Rating),
+                DishSorting.RatingDesc => query.OrderByDescending(d => d.Rating),
                 _ => query
             };
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using DTO.Enums;
 using System.Text.Json.Serialization;
 
 namespace DAL.Models
@@ -15,13 +16,4 @@ namespace DAL.Models
         public DishCategory Category { get; set; }
     }
 
-    [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum DishCategory
-    {
-        Wok,
-        Pizza,
-        Soup,
-        Dessert,
-        Drink
-    }
 }
