@@ -15,7 +15,14 @@ builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-    }); 
+    });
+
+//
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Food Delivery API", Version = "v1" });
+    c.UseInlineDefinitionsForEnums();
+});
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -54,6 +61,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Register services for dependency injection
 builder.Services.AddScoped<IUserService, UserService>();
+
+// Dish services for dependency injection
+builder.Services.AddScoped<IDishService, DishService>();
+
 
 // Configure JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("Jwt");
