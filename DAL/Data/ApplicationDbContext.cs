@@ -9,14 +9,11 @@ namespace DAL.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Dish> Dishes { get; set; }
+        public DbSet<BasketItem> BasketItems { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=FoodDeliveryDb;Username=postgres;Password=1234",
-                    b => b.MigrationsAssembly("DAL"));
-            }
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
