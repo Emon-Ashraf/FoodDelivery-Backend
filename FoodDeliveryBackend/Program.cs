@@ -64,7 +64,10 @@ builder.Services.AddScoped<IUserService, UserService>();
 
 // Dish services for dependency injection
 builder.Services.AddScoped<IDishService, DishService>();
+// Basket services for dependency injection
 builder.Services.AddScoped<IBasketService, BasketService>();
+
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 
 // Configure JWT Authentication
