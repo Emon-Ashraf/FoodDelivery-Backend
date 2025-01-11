@@ -68,6 +68,7 @@ builder.Services.AddScoped<IDishService, DishService>();
 builder.Services.AddScoped<IBasketService, BasketService>();
 
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IRatingService, RatingService>();
 
 
 // Configure JWT Authentication

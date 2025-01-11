@@ -12,6 +12,7 @@ namespace DAL.Data
         public DbSet<BasketItem> BasketItems { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDish> OrderDishes { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,6 +33,28 @@ namespace DAL.Data
                 .HasOne(od => od.Dish)
                 .WithMany()
                 .HasForeignKey(od => od.DishId);
+
+            // Configure primary key for Rating
+            modelBuilder.Entity<Rating>()
+                .HasKey(r => r.Id);
+
+            // Ensure a user can only rate a dish once
+            modelBuilder.Entity<Rating>()
+                .HasIndex(r => new { r.UserId, r.DishId })
+                .IsUnique();
+
+            // Define relationships for Rating
+            modelBuilder.Entity<Rating>()
+                .HasOne(r => r.User)
+                .WithMany()
+                .HasForeignKey(r => r.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Rating>()
+                .HasOne(r => r.Dish)
+                .WithMany()
+                .HasForeignKey(r => r.DishId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
